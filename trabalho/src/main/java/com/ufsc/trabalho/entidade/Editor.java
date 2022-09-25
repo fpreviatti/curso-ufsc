@@ -58,6 +58,14 @@ public class Editor {
         return postagens;
     }
 
+    public Double getTotalPostagens(){
+        double totalPostagens = 0d;
+
+        totalPostagens = getPostagens().size();
+
+        return totalPostagens;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -49,7 +49,12 @@ public class EditorService {
     public Editor findById(Long id){
 
         try {
-            return editorRepository.findById(id).get();
+            Editor editor = editorRepository.findById(id).get();
+
+            System.out.println("===========TOTAL POSTAGENS===========" +editor.getTotalPostagens());
+
+            return editor;
+
         } catch(NoSuchElementException e) {
             throw new EntityNotFoundException("Editor id " + id +" não encontrado");
         }
@@ -84,11 +89,5 @@ public class EditorService {
         }
         editorRepository.deleteById(id);
     }
-
-    /*public List<Editor> getEditorByPostagemId(Long id){
-
-       return editorRepository.getAllEditoresByPostagemId(id);
-
-    }*/
 
 }

@@ -3,9 +3,7 @@ package com.ufsc.trabalho.entidade;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Postagem {
@@ -18,9 +16,21 @@ public class Postagem {
     private String titulo;
     private String texto;
 
+    @ManyToMany
+    @JoinTable(name = "assunto_postagem", joinColumns = @JoinColumn(name = "postagem_id"),
+            inverseJoinColumns = @JoinColumn(name="assunto_id"))
+    private List<Assunto> assuntos = new ArrayList<>();
+
     @OneToMany(mappedBy = "postagem")
     private List<Comentario> comentarios;
 
+    public List<Assunto> getAssuntos() {
+        return assuntos;
+    }
+
+    public void setAssuntos(List<Assunto> assuntos) {
+        this.assuntos = assuntos;
+    }
 
     @ManyToOne
     @JoinColumn(name = "editor_id")
@@ -87,11 +97,11 @@ public class Postagem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Postagem postagem = (Postagem) o;
-        return id.equals(postagem.id) && data.equals(postagem.data) && titulo.equals(postagem.titulo) && texto.equals(postagem.texto) && comentarios.equals(postagem.comentarios) && editor.equals(postagem.editor);
+        return id.equals(postagem.id) && data.equals(postagem.data) && titulo.equals(postagem.titulo) && texto.equals(postagem.texto) && assuntos.equals(postagem.assuntos) && comentarios.equals(postagem.comentarios) && editor.equals(postagem.editor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, data, titulo, texto, comentarios, editor);
+        return Objects.hash(id, data, titulo, texto, assuntos, comentarios, editor);
     }
 }
