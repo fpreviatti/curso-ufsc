@@ -85,4 +85,10 @@ public class EditorService {
         editorRepository.deleteById(id);
     }
 
+    /*public List<Editor> getEditorByPostagemId(Long id){
+
+       return editorRepository.getAllEditoresByPostagemId(id);
+
+    }*/
+
 }

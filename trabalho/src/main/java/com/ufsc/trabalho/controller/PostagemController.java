@@ -53,6 +53,7 @@ public class PostagemController {
     @PutMapping(value = "/postagens/{id}")
     public ResponseEntity<Postagem> updatePostagem(@PathVariable Long id, @RequestBody Postagem postagem){
 
+        postagem.setId(id);
         Postagem postagemAtualizada = postagemService.update(id,postagem);
         return ResponseEntity.ok().body(postagemAtualizada);
 
