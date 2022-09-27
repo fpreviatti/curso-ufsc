@@ -20,7 +20,7 @@ public class ComentarioController {
     private PostagemService postagemService;
 
     @GetMapping(value = "/comentarios")
-    public ResponseEntity<List<Comentario>> findAll(){
+    public ResponseEntity<List<Comentario>> getComentarios(){
 
         List<Comentario> comentarios = comentarioService.findAll();
         return ResponseEntity.ok().body(comentarios);
@@ -32,12 +32,19 @@ public class ComentarioController {
         return ResponseEntity.ok().body(postagem.getComentarios());
     }
 
+    @GetMapping(value = "/comentarios/{id}")
+    public ResponseEntity<Comentario> getComentarioById(@PathVariable Long id){
+        Comentario comentario = comentarioService.findById(id);
+        return ResponseEntity.ok().body(comentario);
+    }
+
     @PostMapping(value = "/comentarios/postagem/{id}")
     public ResponseEntity<Comentario> saveComentario(@PathVariable Long id, @RequestBody Comentario comentario){
         Postagem postagem = postagemService.findById(id);
         comentarioService.salvarComentario(comentario, postagem);
         return ResponseEntity.ok().body(comentario);
     }
+
 
     @PutMapping(value = "/comentarios/{id}")
     public ResponseEntity<Comentario> updateComentario(@PathVariable Long id, @RequestBody Comentario comentario){

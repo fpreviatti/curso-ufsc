@@ -1,6 +1,8 @@
 package com.ufsc.trabalho.entidade;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ufsc.trabalho.service.EditorService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +16,8 @@ public class Editor {
     private Long id;
     private String nome;
     private String senha;
+
+    private Double totalPostagens=0d;
 
     @JsonIgnore
     @OneToMany(mappedBy = "editor")
@@ -58,10 +62,12 @@ public class Editor {
         return postagens;
     }
 
-    public Double getTotalPostagens(){
-        double totalPostagens = 0d;
 
-        totalPostagens = getPostagens().size();
+    public Double getTotalPostagens() {
+
+        if(getPostagens()!=null){
+            return Double.valueOf(getPostagens().size());
+        }
 
         return totalPostagens;
     }

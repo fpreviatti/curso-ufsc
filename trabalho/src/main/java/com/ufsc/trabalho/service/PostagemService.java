@@ -82,8 +82,6 @@ public class PostagemService {
             comentariosDaPostagem.add(comentario);
         }
 
-        editorService.findById(postagem.getEditor().getId());
-
         postagemEntity.setData(postagem.getData());
         postagemEntity.setTexto(postagem.getTexto());
         postagemEntity.setTitulo(postagem.getTitulo());
@@ -103,6 +101,20 @@ public class PostagemService {
 
         comentarioService.salvarListaComentarios(comentariosDaPostagem);
         return savedPostagem;
+
+    }
+
+    public void deletePostagem(Long id){
+
+        Postagem postagem = findById(id);
+
+        for(Comentario comentario: postagem.getComentarios()){
+            comentarioService.findById(comentario.getId());
+            comentarioService.delete(comentario.getId());
+
+        }
+
+        postagemRepository.deleteById(id);
 
     }
 

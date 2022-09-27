@@ -59,4 +59,12 @@ public class PostagemController {
 
     }
 
+    @DeleteMapping(value = "/postagens/{id}")
+    public ResponseEntity<Postagem> deletePostagem(@PathVariable Long id){
+
+        postagemService.deletePostagem(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
 }

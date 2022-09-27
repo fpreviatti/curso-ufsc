@@ -42,9 +42,6 @@ public class Assunto {
         return postagens;
     }
 
-    public void setPostagens(List<Postagem> postagens) {
-        this.postagens = postagens;
-    }
 
     @Override
     public boolean equals(Object o) {

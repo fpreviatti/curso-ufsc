@@ -45,9 +45,9 @@ public class Setup implements CommandLineRunner{
 
 		Assunto a3 = new Assunto();
 		a3.setId(3L);
-		a2.setDescricao("Economia");
+		a3.setDescricao("Economia");
 
-		assuntoRepository.save(a1);
+		assuntoRepository.saveAll(Arrays.asList(a1,a2,a3));
 
 		Editor e1 = new Editor(1L, "Marcos Peixoto", "123456");
 		Editor e2 = new Editor(2L, "Daniela Beltrão", "123456");

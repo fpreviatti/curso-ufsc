@@ -1,7 +1,5 @@
 package com.ufsc.trabalho.entidade;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -15,6 +13,8 @@ public class Postagem {
     private Date data;
     private String titulo;
     private String texto;
+
+    private Double totalPalavras=0d;
 
     @ManyToMany
     @JoinTable(name = "assunto_postagem", joinColumns = @JoinColumn(name = "postagem_id"),
@@ -91,6 +91,18 @@ public class Postagem {
     public List<Comentario> getComentarios() {
         return comentarios;
     }
+
+    public Double getTotalPalavras() {
+
+        StringTokenizer stTexto = new StringTokenizer(this.getTexto());
+        stTexto.countTokens();
+
+        StringTokenizer stTitulo = new StringTokenizer(this.getTitulo());
+        stTitulo.countTokens();
+
+        return Double.valueOf(stTexto.countTokens() + stTitulo.countTokens());
+    }
+
 
     @Override
     public boolean equals(Object o) {
